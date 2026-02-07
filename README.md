@@ -1,9 +1,8 @@
-# task_manager
-📝 Python Full-Stack Task Manager
+# Python Full-Stack Task Manager
 
 A lightweight, full-stack web application built with a Python (Flask) backend and a vanilla JavaScript/Tailwind CSS frontend. This project demonstrates basic CRUD (Create, Read, Update, Delete) operations, RESTful API design, and database persistence using SQLite.
 
-🚀 Features
+Features
 
 Add Tasks: Create new tasks that are saved instantly.
 
@@ -15,7 +14,7 @@ Persistent Storage: Uses SQLite to ensure your data stays put.
 
 Responsive Design: Styled with Tailwind CSS for a clean look on mobile and desktop.
 
-🛠️ Tech Stack
+Tech Stack
 
 Backend: Python, Flask, Flask-CORS, SQLite
 
@@ -23,7 +22,7 @@ Frontend: HTML5, JavaScript (Fetch API), Tailwind CSS
 
 Deployment: Gunicorn (WSGI Server)
 
-💻 Local Setup
+Local Setup
 
 Clone the repository:
 
