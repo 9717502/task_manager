@@ -43,8 +43,7 @@ python task_manager.py
 Access the app:
 Open your browser and navigate to http://127.0.0.1:5000
 
-🌍 Deployment (Render)
-
+Deployment (Render)
 To host this on Render:
 
 Create a new Web Service and connect your GitHub repo.
@@ -55,6 +54,5 @@ Start Command: gunicorn task_manager:app
 
 Environment Variables: None required for the basic setup.
 
-📄 License
-
+License:
 This project is open-source and available under the MIT License.
