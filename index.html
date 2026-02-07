@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Task Web App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-md rounded-xl shadow-lg p-6">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">My Tasks</h1>
+        
+        <div class="flex gap-2 mb-6">
+            <input type="text" id="taskInput" placeholder="Add a new task..." 
+                   class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button onclick="addTask()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 font-bold">
+                +
+            </button>
+        </div>
+
+        <div id="taskList" class="space-y-3">
+            <!-- Tasks load here -->
+        </div>
+    </div>
+
+    <script>
+        // Using a relative URL so it works in Codespaces or locally
+        const API_URL = '/tasks';
+
+        async function loadTasks() {
+            const res = await fetch(API_URL);
+            const tasks = await res.json();
+            const list = document.getElementById('taskList');
+            list.innerHTML = '';
+
+            tasks.forEach(task => {
+                const item = document.createElement('div');
+                item.className = `flex items-center justify-between p-3 border rounded-lg ${task.done ? 'bg-gray-50' : 'bg-white'}`;
+                item.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <input type="checkbox" ${task.done ? 'checked' : ''} onchange="toggleTask(${task.id})" class="h-5 w-5">
+                        <span class="${task.done ? 'line-through text-gray-400' : 'text-gray-700'}">${task.title}</span>
+                    </div>
+                    <button onclick="deleteTask(${task.id})" class="text-red-500 font-bold px-2">×</button>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        async function addTask() {
+            const input = document.getElementById('taskInput');
+            if (!input.value) return;
+            await fetch(API_URL, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ title: input.value })
+            });
+            input.value = '';
+            loadTasks();
+        }
+
+        async function toggleTask(id) {
+            await fetch(`${API_URL}/${id}`, { method: 'PATCH' });
+            loadTasks();
+        }
+
+        async function deleteTask(id) {
+            await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+            loadTasks();
+        }
+
+        loadTasks();
+    </script>
+</body>
+</html>
